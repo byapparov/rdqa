@@ -1,0 +1,16 @@
+Package: rdqa
+Type: Package
+Title: Data Quality Logging Pagckage
+Version: 0.1.0
+Author: Who wrote it
+Maintainer: <bulat.yapparov@made.com>
+Description: Package allows to log data errors in predefined schema. 
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests:
+  testthat
+RoxygenNote: 6.0.1
+Imports: 
+  DBI,
+  RSQLite
