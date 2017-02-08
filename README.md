@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/byapparov/rdqa.svg?branch=master)](https://travis-ci.org/byapparov/rdqa)
+
 Data Quality package allows logging of errors to the database with predefined schema.
 
 
