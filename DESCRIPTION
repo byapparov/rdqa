@@ -22,5 +22,4 @@ Collate:
     'data-quality.R'
     'regex.R'
     'required.R'
-    'test-lib.R'
     'unique.R'
