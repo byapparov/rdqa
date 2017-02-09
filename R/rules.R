@@ -26,7 +26,6 @@ setMethod("validate", signature("DataRule", "data.table"), function(rule, dt) {
   assert_that(length(key(dt)) > 0)
 })
 
-setGeneric("logErros", function(rule, dt) standardGeneric("logErros"))
 
 #' Higher level class for errors that are at the record level, e.g. missing or duplicate
 setClass("RecordRule", contains = "DataRule")

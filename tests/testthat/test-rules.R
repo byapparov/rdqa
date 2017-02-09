@@ -9,7 +9,12 @@ test_that("Validation for reqauired field works", {
 
   expect_identical(nrow(errors), 2L)
   expect_identical(errors$id, c(2, 3))
-
+  
+  dt <- data.table(id = c(1, 2, 3, 4, 5),
+                   values = c("a", NA_character_, NA_character_, "", "e"), key = "id")
+  errors <- validate(rule, dt)
+  expect_identical(nrow(errors), 3L)
+  expect_identical(errors$id, c(2, 3, 4))
 })
 
 test_that("Regex rule validation works", {

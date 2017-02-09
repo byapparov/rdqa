@@ -12,6 +12,6 @@ newRequiredRule <- function(field) {
 # Validates data.table for the empty field rule
 setMethod("validate", signature("RequiredRule", "data.table"), function(rule, dt) {
   callNextMethod()
-  errors <-  subset(dt, is.na(get(rule@field)))
+  errors <-  subset(dt, is.na(get(rule@field)) | nchar(get(rule@field)) == 0)
   return(errors)
 })
