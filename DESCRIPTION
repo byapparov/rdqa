@@ -4,13 +4,19 @@ Title: Data Quality Logging Pagckage
 Version: 0.1.0
 Author: Who wrote it
 Maintainer: <bulat.yapparov@made.com>
-Description: Package allows to log data errors in predefined schema. 
+Description: Package allows to log data errors in predefined schema.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests:
-  testthat
-RoxygenNote: 6.0.1
-Imports: 
-  DBI,
-  RSQLite
+    testthat
+RoxygenNote: 5.0.1
+Imports:
+    DBI,
+    RSQLite
+Collate:
+    'data-quality.R'
+    'rules.R'
+    'regex.R'
+    'required.R'
+    'unique.R'

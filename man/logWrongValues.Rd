@@ -28,3 +28,4 @@ TRUE if records are saved successfuly
 \description{
 Functions logs data.table with incrorrect records to the database
 }
+

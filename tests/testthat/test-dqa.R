@@ -1,5 +1,6 @@
 library(DBI)
 library(RSQLite)
+library(data.table)
 
 context("Logging")
 
@@ -33,5 +34,43 @@ test_that("Records are logged correctly to the errors table", {
 
 })
 
-# Post test cleanup
+# Post logging test cleanup
 if(file.exists("test.db")) file.remove("test.db")
+
+
+context("Validation")
+test_that("Validation empty field validate works", {
+  dt <- data.table(id = c(1, 2, 3, 4), 
+                   values = c("a", NA_character_, NA_character_, "d"))
+  
+  rule <- newRequiredRule("id", "values")
+  errors <- validate(rule, dt)
+
+  expect_identical(nrow(errors), 2L)
+  expect_identical(errors$id, c(2, 3))
+  
+})
+
+test_that("Regex rule validation works", {
+  dt <- data.table(id = c(1, 2, 3, 4), 
+                   values = c("abc", "ab1", "cb2", "xac"))
+  
+  rule <- newRegexRule("id", "values", "b")
+  errors <- validate(rule, dt)
+  expect_identical(nrow(errors), 3L)
+  
+  rule <- newRegexRule("id", "values", "[0-9]")
+  errors <- validate(rule, dt)
+  expect_identical(nrow(errors), 2L)
+  
+})
+
+test_that("Unique rule validation works", {
+  dt <- data.table(id = c(1, 2, 2, 4), 
+                   values = c("abc", "ab1", "cb2", "xac"))
+  
+  rule <- newUniqueRule("id", "id")
+  errors <- validate(rule, dt)
+  expect_identical(nrow(errors), 1L)
+  
+})
