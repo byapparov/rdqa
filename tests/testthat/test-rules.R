@@ -1,4 +1,5 @@
 context("Data reference")
+
 test_that("Execution fails if key on the data.table is not set", {
   dt <- data.table(id = c(1, 2, 2, 4),
                    values = c("abc", "ab1", "cb2", "xac"))
@@ -17,6 +18,7 @@ test_that("Execution fails if key on the data.table is multiple columns", {
 })
 
 context("Required rule")
+
 test_that("Validation for reqauired field works", {
   dt <- data.table(id = c(1, 2, 3, 4),
                    values = c("a", NA_character_, NA_character_, "d"), key = "id")
@@ -35,6 +37,7 @@ test_that("Validation for reqauired field works", {
 })
 
 context("Regex rule")
+
 test_that("Regex rule validation works", {
   dt <- data.table(id = c(1, 2, 3, 4),
                    values = c("abc", "ab1", "cb2", "xac"),
@@ -51,6 +54,7 @@ test_that("Regex rule validation works", {
 })
 
 context("Unique rule")
+
 test_that("Unique rule validation works", {
   dt <- data.table(id = c(1, 2, 2, 4),
                    values = c("abc", "ab1", "cb2", "xac"),
