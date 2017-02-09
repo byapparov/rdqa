@@ -6,6 +6,11 @@
 \usage{
 newRulesContainer(source, ...)
 }
+\arguments{
+\item{source}{data source of the data}
+
+\item{...}{data rules that should be executed against the data}
+}
 \description{
 Creates new rules container from rules
 }

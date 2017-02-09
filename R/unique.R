@@ -11,7 +11,10 @@ newUniqueRule <- function(fields) {
   return(dt)
 }
 
-#' Validates field in a data.table is unique
+#' Validates that a field in a data.table is unique
+#'
+#' @param rule data rule that will be used to find duplicate records
+#' @param dt data to be validated
 setMethod("validate", signature("UniqueRule", "data.table"), function(rule, dt) {
   callNextMethod()
   errors <- subset(dt, duplicated(get(rule@fields)))

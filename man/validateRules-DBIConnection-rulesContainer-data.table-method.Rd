@@ -8,6 +8,13 @@
 \S4method{validateRules}{DBIConnection,rulesContainer,data.table}(conn,
   container, dt)
 }
+\arguments{
+\item{conn}{connection to the database}
+
+\item{container}{container with data rules}
+
+\item{dt}{data.table that should be validated}
+}
 \description{
 Validates data.table against the container of rules
 }

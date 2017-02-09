@@ -3,10 +3,15 @@
 \docType{methods}
 \name{validate,UniqueRule,data.table-method}
 \alias{validate,UniqueRule,data.table-method}
-\title{Validates field in a data.table is unique}
+\title{Validates that a field in a data.table is unique}
 \usage{
 \S4method{validate}{UniqueRule,data.table}(rule, dt)
 }
+\arguments{
+\item{rule}{data rule that will be used to find duplicate records}
+
+\item{dt}{data to be validated}
+}
 \description{
-Validates field in a data.table is unique
+Validates that a field in a data.table is unique
 }

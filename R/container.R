@@ -9,15 +9,25 @@ setClass("rulesContainer", contains = "DataRule",
 
 #' Creates new rules container from rules
 #'
+#' @param source data source of the data
+#' @param ... data rules that should be executed against the data
 newRulesContainer <- function(source, ...) {
   rules <- new("rulesContainer", source = source, rules = list(...))
 }
 
+#' Validates data using rules within the rule container
+#'
+#' @param conn connection to the database
+#' @param container container with rules
+#' @param dt data to be validated
 setGeneric("validateRules", function(conn, container, dt) standardGeneric("validateRules"))
 
 #' Validates data.table against the container of rules
 #'
 #' @include rules.R
+#' @param conn connection to the database
+#' @param container container with data rules
+#' @param dt data.table that should be validated
 setMethod("validateRules", signature("DBIConnection", "rulesContainer", "data.table"), function(conn, container, dt) {
   res <- lapply(container@rules, function(r) {
      errors <- validate(r, dt)
