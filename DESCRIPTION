@@ -9,14 +9,18 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests:
-    testthat
-RoxygenNote: 5.0.1
+    testthat,
+    assertthat
+RoxygenNote: 6.0.1
 Imports:
     DBI,
-    RSQLite
-Collate:
-    'data-quality.R'
+    RSQLite,
+    data.table
+Collate: 
     'rules.R'
+    'container.R'
+    'data-quality.R'
     'regex.R'
     'required.R'
+    'test-lib.R'
     'unique.R'

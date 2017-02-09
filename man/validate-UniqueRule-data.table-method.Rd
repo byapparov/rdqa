@@ -10,4 +10,3 @@
 \description{
 Validates field in a data.table is unique
 }
-
