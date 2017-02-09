@@ -21,7 +21,7 @@ logWrongValues <- function(conn, source, type, rule, refs, values, urls = rep(NA
                                   ref = refs,
                                   value = values,
                                   url = urls))
-
+  colnames(dqa.records) <- c("date", "source", "type", "rule", "ref", "value", "url")
   dbWriteTable(conn, "errors", dqa.records, append = TRUE)
 }
 
