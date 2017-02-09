@@ -63,9 +63,20 @@ test_that("Unique rule validation works", {
   rule <- newUniqueRule("id")
   errors <- validate(rule, dt)
   expect_identical(nrow(errors), 1L)
+  expect_identical(errors$values, "cb2")
 
 })
 
+test_that("Unique rule works for several duplicated values", {
+  rule <- newUniqueRule("big")
+  dt <- data.table(id = c(1, 2, 3, 4, 5),
+                   small = c(1, 10, 2, 3, 4),
+                   big = c(10, 1, 20, 20, 20),
+                   name = c("a", "", "c", "d", NA_character_),
+                   key = "id")
+  errors <- validate(rule, dt)
+  expect_identical(errors$id, c(4, 5))
+})
 
 context("Foreign key rule")
 
