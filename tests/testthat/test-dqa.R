@@ -43,7 +43,6 @@ context("Rules container logs errors")
 
 setupDqaDb()
 
-#' @include test-dqa.R
 test_that("Rules container validates all rules", {
   # Define data
   dt <- data.table(id = c(1, 2, 2, 4),
