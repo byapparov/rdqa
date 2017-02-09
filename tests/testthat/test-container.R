@@ -2,8 +2,9 @@ library(DBI)
 library(RSQLite)
 library(data.table)
 
+#' Set up the test db environment
 setupDqaDb <- function() {
-  # Set up the test db environment
+  
   if(file.exists("test.db")) file.remove("test.db")
   conn <- dbConnect(dbDriver("SQLite"), "test.db") # makes a new file
   error.record <- data.frame(list(date = Sys.time(),

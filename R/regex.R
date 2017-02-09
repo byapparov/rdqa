@@ -5,7 +5,7 @@ setClass("RegexRule", contains = "FieldRule", representation(pattern = "characte
 
 
 newRegexRule <- function(field, pattern) {
-  rule <- new("RegexRule", name = paste0("Field ", field, " should matrch pattern ", pattern),
+  rule <- new("RegexRule", name = paste0("Field [", field, "] should matrch pattern ", pattern),
             type = "Regex",
             field = field,
             pattern = pattern)

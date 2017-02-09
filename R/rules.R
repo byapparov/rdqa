@@ -22,8 +22,8 @@ setGeneric("validate", function(rule, dt) standardGeneric("validate"))
 #' @param dt data to be validated
 #' @return subset of the original data that contains errors
 setMethod("validate", signature("DataRule", "data.table"), function(rule, dt) {
-  # check that key is set
-  assert_that(length(key(dt)) > 0)
+  # check that key is set and it is only one field
+  assert_that(length(key(dt)) == 1)
 })
 
 
@@ -33,8 +33,6 @@ setClass("RecordRule", contains = "DataRule")
 #' Higher level class for errors that are at field level
 setClass("FieldRule", contains = "DataRule", representation(field = "character"))
 
-#' Class to describe foreign key rules
-setClass("ForeignKeyRule", contains = "FieldRule")
 
 #' Class to validate the primariy key constraint
 #' Finds and logs missing records in the referenced table
