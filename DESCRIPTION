@@ -9,13 +9,13 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests:
-    testthat,
-    assertthat
+    testthat
 RoxygenNote: 6.0.1
 Imports:
     DBI,
     RSQLite,
-    data.table
+    data.table,
+    assertthat
 Collate: 
     'rules.R'
     'container.R'
