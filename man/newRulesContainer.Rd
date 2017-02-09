@@ -11,6 +11,9 @@ newRulesContainer(source, ...)
 
 \item{...}{data rules that should be executed against the data}
 }
+\value{
+container with rules
+}
 \description{
 Creates new rules container from rules
 }

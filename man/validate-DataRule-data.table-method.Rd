@@ -3,7 +3,8 @@
 \docType{methods}
 \name{validate,DataRule,data.table-method}
 \alias{validate,DataRule,data.table-method}
-\title{Checks that rule and data.table are valid}
+\title{Checks that rule and data.table are valid
+callNextMethod() should be called from all overloads of this method}
 \usage{
 \S4method{validate}{DataRule,data.table}(rule, dt)
 }
@@ -16,5 +17,6 @@
 subset of the original data that contains errors
 }
 \description{
+Checks that rule and data.table are valid
 callNextMethod() should be called from all overloads of this method
 }

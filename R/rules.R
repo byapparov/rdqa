@@ -15,7 +15,6 @@ setClass("DataRule", representation(name = "character",
 setGeneric("validate", function(rule, dt) standardGeneric("validate"))
 
 #' Checks that rule and data.table are valid
-#'
 #' callNextMethod() should be called from all overloads of this method
 #'
 #' @param rule data rule that will be used to find records with errors

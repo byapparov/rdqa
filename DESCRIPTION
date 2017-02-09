@@ -20,7 +20,7 @@ Collate:
     'rules.R'
     'condition.R'
     'container.R'
-    'data-quality.R'
+    'error-logging.R'
     'foreign-key.R'
     'regex.R'
     'required.R'

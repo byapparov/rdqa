@@ -8,9 +8,11 @@ setClass("rulesContainer", contains = "DataRule",
 )
 
 #' Creates new rules container from rules
-#'
+#' 
+#' @export
 #' @param source data source of the data
 #' @param ... data rules that should be executed against the data
+#' @return container with rules
 newRulesContainer <- function(source, ...) {
   rules <- new("rulesContainer", source = source, rules = list(...))
 }
