@@ -11,13 +11,13 @@ library(DBI)
 #' @param values wrong values
 #' @param urls vector of urls to an object in the system, if not provided defaulted to NAs
 #' @return TRUE if records are saved successfuly
-logWrongValues <- function(conn, source, type, rule, refs, values, urls = rep(NA, length(values))) {
+logWrongValues <- function(conn, source, type, rule, refs, values, urls = rep(NA_character_, length(values))) {
 
   date <- Sys.time()
   refs <- as.character(unlist(refs))
   values <- as.character(unlist(values))
 
-   dqa.records <- data.frame(date = date,
+  dqa.records <- data.frame(date = date,
                                   source = source,
                                   type = type,
                                   rule = rule,
