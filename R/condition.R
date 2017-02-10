@@ -24,7 +24,7 @@ newConditionRule <- function(field, condition) {
 #' @return Records that did not pass the condition
 setMethod("validate", signature("ConditionRule", "data.table"), function(rule, dt) {
   callNextMethod()
-  errors <- subset.data.frame(dt, !eval(rule@condition))
+  errors <- subset(dt, !eval(rule@condition))
   errors$rule <- rule@name
   errors$type <- rule@type
   return(errors)
