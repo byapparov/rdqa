@@ -10,7 +10,7 @@ setClass("UniqueRule", contains = "RecordRule", representation(fields = "charact
 #' @param fields vector of fields that define the unique constraint
 #' @return records that did not pass the check
 newUniqueRule <- function(fields) {
-  dt <- new("UniqueRule", name = paste0("Field(s) ", paste(fields, collapse = ","), " should be uqniue"),
+  dt <- new("UniqueRule", name = paste0("Field(s) [", paste(fields, collapse = ", "), "] should be uqniue"),
             type = "Unique",
             fields = fields)
   return(dt)
@@ -24,7 +24,10 @@ newUniqueRule <- function(fields) {
 #' @return duplicate records
 setMethod("validate", signature("UniqueRule", "data.table"), function(rule, dt) {
   callNextMethod()
-  errors <- subset(dt, subset = duplicated(get(rule@fields)))
+  unique.fields <- subset(dt, select = rule@fields)
+  setkeyv(unique.fields, cols = rule@fields)
+
+  errors <- subset(dt, subset = duplicated(unique.fields))
   errors$rule <- rule@name
   errors$type <- rule@type
   return(errors)

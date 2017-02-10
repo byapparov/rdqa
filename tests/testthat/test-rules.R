@@ -76,14 +76,16 @@ test_that("Unique rule works for several duplicated values", {
                    key = "id")
   errors <- validate(rule, dt)
   expect_identical(errors$id, c(4, 5))
+})
 
-  dt <- data.table(id =    c(1, 2,  3, 2,  5),
-                   small = c(1, 10, 2, 10, 4),
+test_that("Unique rule works for several columns", {
+  dt <- data.table(id =    c(1,  2, 3,  2,  2),
+                   small = c(1, 10, 2, 10, 30),
                    big = c(10, 1, 20, 20, 20),
-                   name = c("a", "", "c", "d", NA_character_),
                    key = "id")
   rule <- newUniqueRule(c("id", "small"))
   errors <- validate(rule, dt)
+  expect_identical(nrow(errors), 1L)
   expect_identical(errors$id, 2)
 })
 
