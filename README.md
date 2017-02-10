@@ -27,6 +27,8 @@ Duplicate | Duplicated record
 
 ## Example
 
+### Code
+
 ```R
 
 library(rdqa)
@@ -52,4 +54,17 @@ dt <- data.table(id = c(1, 2, 3, 4, 5),
 # and log results to the database
 validateRules(conn, all.rules, dt)
 
+# Check what we have in the errors table
+res <- dbGetQuery(conn, "SELECT * FROM errors")
+
+
 ```
+
+### Expected result
+
+ date    |  source  | type |  rule | ref | value | url
+-------- | -------- |----- | -------------------------- | --- | ----- | --------------------------
+ 1486681846 | test.data.td | Condition | Field [small] should matrch condition: < big |2|2|NA
+ 1486685164 | test.data.td | Unique | Field(s) big should be uqniue   | 4   |  4  | NA
+ 1486685164 | test.data.td | Required | Field [name] should ont be empty  | 2  |   2  | NA
+ 1486685164 | test.data.td | Required | Field [name] should ont be empty  | 5  |   5  | NA
