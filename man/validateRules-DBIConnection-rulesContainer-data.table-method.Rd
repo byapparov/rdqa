@@ -23,6 +23,8 @@ Validates data.table against the container of rules
 }
 \examples{
 library(rdqa)
+library(data.table)
+library(RSQLite)
 
 # Defining the rules - here we don't need the data yet
 r.smaller <- newConditionRule("small", condition = "< big")
