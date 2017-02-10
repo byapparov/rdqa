@@ -8,7 +8,7 @@ setClass("RequiredRule", contains = "FieldRule")
 #' @param field name of the field to be validated
 #' @return new required rule
 newRequiredRule <- function(field) {
-  dt <- new("RequiredRule", name = paste0("Field ", field, "should ont be empty"),
+  dt <- new("RequiredRule", name = paste0("Field [", field, "] should not be empty"),
             type = "Required",
             field = field)
   return(dt)
