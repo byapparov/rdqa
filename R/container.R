@@ -25,7 +25,8 @@ newRulesContainer <- function(source, ...) {
 setGeneric("validateRules", function(conn, container, dt) standardGeneric("validateRules"))
 
 #' Validates data.table against the container of rules
-#'
+#' 
+#' @export
 #' @include rules.R
 #' @param conn connection to the database
 #' @param container container with data rules
