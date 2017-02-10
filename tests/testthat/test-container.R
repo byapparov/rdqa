@@ -68,5 +68,19 @@ test_that("Rules container validates all rules", {
   dbDisconnect(conn)
 })
 
+test_that("Rules container validates all rules", {
+  # Define data
+  dt <- data.table(id = c(1, 2, 2, 4),
+                   values = c("abc", "ab1", "cb2", "xac"),
+                   key = "id")
+  rule.unique <- newUniqueRule("values") # we have no duplicate records
+
+  rules <- newRulesContainer(source = "test.data", rule.unique)
+  # Connect to the database and execute the validation
+  conn <- dbConnect(dbDriver("SQLite"), "test.db") # makes a new file
+  res <- validateRules(conn, rules, dt)
+  expect_identical(res[[1]], FALSE)
+})
+
 # Post logging test cleanup
 if(file.exists("test.db")) file.remove("test.db")

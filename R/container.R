@@ -36,6 +36,10 @@ setMethod("validateRules", signature("DBIConnection", "rulesContainer", "data.ta
   res <- lapply(container@rules, function(r) {
      errors <- validate(r, dt)
      n <- nrow(errors)
+
+     # Skip logging if there are no errors
+     if (n == 0L) return (FALSE)
+
      logWrongValues(conn = conn,
                     source = container@source,
                     type = r@type,

@@ -26,9 +26,6 @@ setMethod("validate", signature("UniqueRule", "data.table"), function(rule, dt) 
   callNextMethod()
   unique.fields <- subset(dt, select = rule@fields)
   setkeyv(unique.fields, cols = rule@fields)
-
   errors <- subset(dt, subset = duplicated(unique.fields))
-  errors$rule <- rule@name
-  errors$type <- rule@type
   return(errors)
 })

@@ -4,7 +4,7 @@
 setClass("RegexRule", contains = "FieldRule", representation(pattern = "character"))
 
 #' Creates new regex rule
-#' 
+#'
 #' @export
 #' @param field name of the field to be validated
 #' @param pattern regex pattern that field should comply with
@@ -26,7 +26,5 @@ newRegexRule <- function(field, pattern) {
 setMethod("validate", signature("RegexRule", "data.table"), function(rule, dt) {
   callNextMethod()
   errors <- subset(dt, !grepl(rule@pattern, get(rule@field)))
-  errors$rule <- rule@name
-  errors$type <- rule@type
   return(errors)
 })
