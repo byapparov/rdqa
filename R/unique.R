@@ -21,6 +21,7 @@ newUniqueRule <- function(fields) {
 #' @export
 #' @param rule data rule that will be used to find duplicate records
 #' @param dt data to be validated
+#' @return duplicate records
 setMethod("validate", signature("UniqueRule", "data.table"), function(rule, dt) {
   callNextMethod()
   errors <- subset(dt, duplicated(get(rule@fields)))

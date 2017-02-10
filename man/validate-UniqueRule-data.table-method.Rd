@@ -12,6 +12,9 @@
 
 \item{dt}{data to be validated}
 }
+\value{
+duplicate records
+}
 \description{
 Validates that a field in a data.table is unique
 }

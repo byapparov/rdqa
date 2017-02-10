@@ -31,6 +31,8 @@ setGeneric("validateRules", function(conn, container, dt) standardGeneric("valid
 #' @param conn connection to the database
 #' @param container container with data rules
 #' @param dt data.table that should be validated
+#' @return list of boolen values for each successful write to the database
+#' @example examples/example.R
 setMethod("validateRules", signature("DBIConnection", "rulesContainer", "data.table"), function(conn, container, dt) {
   res <- lapply(container@rules, function(r) {
      errors <- validate(r, dt)
