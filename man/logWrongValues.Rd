@@ -4,8 +4,8 @@
 \alias{logWrongValues}
 \title{Functions logs data.table with incrorrect records to the database}
 \usage{
-logWrongValues(conn, source, type, rule, refs, values, urls = rep(NA,
-  length(values)))
+logWrongValues(conn, source, type, rule, refs, values,
+  urls = rep(NA_character_, length(values)))
 }
 \arguments{
 \item{conn}{DBI connection}
