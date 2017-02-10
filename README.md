@@ -1,8 +1,7 @@
 [![Build Status](https://travis-ci.org/byapparov/rdqa.svg?branch=master)](https://travis-ci.org/byapparov/rdqa)
 [![codecov.io](https://codecov.io/github/byapparov/rdqa/coverage.svg?branch=master)](https://codecov.io/github/byapparov/rdqa?branch=master)
 
-Data Quality package allows logging of errors to the database with predefined schema.
-
+Data Quality package simplifies data validation and logging of errors to the database.
 
 ## Schema
 

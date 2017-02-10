@@ -2,9 +2,9 @@ Package: rdqa
 Type: Package
 Title: Data Quality Logging Pagckage
 Version: 0.1.0
-Author: Who wrote it
+Author: Bulat Yapparov
 Maintainer: <bulat.yapparov@made.com>
-Description: Package allows to log data errors in predefined schema.
+Description: Package allows to validate data and log errors.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
