@@ -8,7 +8,7 @@ setClass("rulesContainer", contains = "DataRule",
 )
 
 #' Creates new rules container from rules
-#' 
+#'
 #' @export
 #' @param source data source of the data
 #' @param ... data rules that should be executed against the data
@@ -25,7 +25,7 @@ newRulesContainer <- function(source, ...) {
 setGeneric("validateRules", function(conn, container, dt) standardGeneric("validateRules"))
 
 #' Validates data.table against the container of rules
-#' 
+#'
 #' @export
 #' @include rules.R
 #' @param conn connection to the database
@@ -40,8 +40,8 @@ setMethod("validateRules", signature("DBIConnection", "rulesContainer", "data.ta
                     source = container@source,
                     type = r@type,
                     rule = r@name,
-                    refs = subset.data.frame(errors, subset = rep(T, n), select = get(key(errors))),
-                    values = subset.data.frame(errors, subset = rep(T, n), select =get(key(errors)))
+                    refs = subset(errors, subset = rep(T, n), select = get(key(errors))),
+                    values = subset(errors, subset = rep(T, n), select =get(key(errors)))
      )
   })
 })

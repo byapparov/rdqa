@@ -4,15 +4,15 @@ library(data.table)
 
 #' Set up the test db environment
 setupDqaDb <- function() {
-  
+
   if(file.exists("test.db")) file.remove("test.db")
   conn <- dbConnect(dbDriver("SQLite"), "test.db") # makes a new file
   error.record <- data.frame(list(date = Sys.time(),
                                   source = "sample.system",
                                   type = "Wrong Value",
                                   rule = "Positive Value",
-                                  ref = 0,
-                                  value  = - 10,
+                                  ref = "0",
+                                  value  ="-10",
                                   url = "http://test.com/test"))
   dbWriteTable(conn, "errors", error.record)
   dbDisconnect(conn)
