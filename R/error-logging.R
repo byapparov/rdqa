@@ -18,6 +18,7 @@ logWrongValues <- function(conn, source, type, rule, refs, values, urls = rep(NA
   values <- as.character(unlist(values))
 
   dqa.records <- data.frame(date = date,
+
                                   source = source,
                                   type = type,
                                   rule = rule,

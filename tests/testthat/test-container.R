@@ -44,6 +44,7 @@ context("Rules container logs errors")
 
 setupDqaDb()
 
+
 test_that("Rules container validates all rules", {
   # Define data
   dt <- data.table(id = c(1, 2, 2, 4),
@@ -64,7 +65,8 @@ test_that("Rules container validates all rules", {
 
   expect_identical(nrow(subset(res, type == "Regex")), 2L)
   expect_identical(nrow(subset(res, type == "Unique")), 1L)
-
+  expect_identical(res$value[res$type == "Regex"], c("abc", "xac"))
+  
   dbDisconnect(conn)
 })
 

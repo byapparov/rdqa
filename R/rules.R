@@ -26,11 +26,39 @@ setMethod("validate", signature("DataRule", "data.table"), function(rule, dt) {
 })
 
 
+#' Gets value(s) that contribute to rule vialation in a data.table
+#'
+#' @param rule data rule that will be used to determine how to make the vector of values
+#' @param errors data.table that only contains records with errors
+#' @return vector of values that represent invalid records
+setGeneric("getValues", function(rule, errors) standardGeneric("getValues"))
+
+#' Gets value(s) that contribute to rule vialation in a data.table
+#' 
+#' @param rule data rule that will be used to determine how to make the vector of values
+#' @param errors data.table that only contains records with errors
+#' @return vector of values that represent invalid records
+setMethod("getValues", signature("DataRule", "data.table"), function(rule, errors) {
+  subset.data.frame(errors, subset = rep(T, nrow(errors)), select =get(key(errors)))
+})
+
+
 #' Higher level class for errors that are at the record level, e.g. missing or duplicate
 setClass("RecordRule", contains = "DataRule")
 
 #' Higher level class for errors that are at field level
 setClass("FieldRule", contains = "DataRule", representation(field = "character"))
+
+#' Gets value(s) that contribute to rule vialation in a data.table
+#' 
+#' @param rule data rule that will be used to determine how to make the vector of values
+#' @param errors data.table that only contains records with errors
+#' @return vector of values that represent invalid records
+setMethod("getValues", signature("FieldRule", "data.table"), function(rule, errors) {
+  field <- rule@field
+  values <- subset(errors, select = get(field))
+  return(values[[1]])
+})
 
 
 #' Class to validate the primariy key constraint

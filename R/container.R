@@ -45,7 +45,7 @@ setMethod("validateRules", signature("DBIConnection", "rulesContainer", "data.ta
                     type = r@type,
                     rule = r@name,
                     refs = subset(errors, subset = rep(T, n), select = get(key(errors))),
-                    values = subset(errors, subset = rep(T, n), select =get(key(errors)))
+                    values = getValues(r, errors)
      )
   })
 })
