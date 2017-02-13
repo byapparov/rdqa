@@ -14,7 +14,15 @@ setClass("ExternalRule", contains = "FieldRule", representation(errors = "logica
 #' @param errors logical vector that defines records with errors
 #' @return new external rule
 newExternalRule <- function(field, errors) {
-  rule <- new("ExternalRule", name = paste0("Field [", field, "] contains wrong data"),
+  if(is.data.table(errors)) {
+    name = paste("Wrong data [", paste(names(errors), sep = ", "), "].")
+    errors <- unlist(errors)
+  }
+  else {
+    name =  paste0("Field [", field, "] contains wrong data")
+  }
+
+  rule <- new("ExternalRule", name = name,
               type = "External",
               field = field,
               errors = errors)
