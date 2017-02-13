@@ -134,4 +134,9 @@ test_that("Execution of external rule works", {
   rule <- newExternalRule("values", errors = c(T, F, T, F, T))
   errors <- validate(rule, dt)
   expect_identical(nrow(errors), 3L)
+
+  rule <- newExternalRule("values", errors = data.table("bad.values"= c(T, F, T, F, T)))
+  errors <- validate(rule, dt)
+  expect_identical(nrow(errors), 3L)
+
 })
