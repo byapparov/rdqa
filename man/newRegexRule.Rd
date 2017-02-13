@@ -12,7 +12,7 @@ newRegexRule(field, pattern)
 \item{pattern}{regex pattern that field should comply with}
 }
 \value{
-records that did not pass the check
+new regex rule
 }
 \description{
 Creates new regex rule

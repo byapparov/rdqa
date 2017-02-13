@@ -125,3 +125,13 @@ test_that("Execution of reference condition rule works", {
   errors <- validate(rule, dt)
   expect_identical(nrow(errors), 1L)
 })
+
+test_that("Execution of external rule works", {
+
+  dt <- data.table(id = c(1, 2, 3, 4, 5),
+                   values = c(1, 10, 2, 3, 4),
+                   key = "id")
+  rule <- newExternalRule("values", errors = c(T, F, T, F, T))
+  errors <- validate(rule, dt)
+  expect_identical(nrow(errors), 3L)
+})

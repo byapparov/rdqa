@@ -8,7 +8,7 @@ setClass("RegexRule", contains = "FieldRule", representation(pattern = "characte
 #' @export
 #' @param field name of the field to be validated
 #' @param pattern regex pattern that field should comply with
-#' @return records that did not pass the check
+#' @return new regex rule
 newRegexRule <- function(field, pattern) {
   rule <- new("RegexRule", name = paste0("Field [", field, "] should matrch pattern ", pattern),
             type = "Regex",
