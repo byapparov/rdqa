@@ -9,7 +9,8 @@ newRulesContainer(source, ...)
 \arguments{
 \item{source}{data source of the data}
 
-\item{...}{data rules that should be executed against the data}
+\item{...}{data rules that should be executed against the data.
+If first element is a list, it will be used as container of rules}
 }
 \value{
 container with rules
