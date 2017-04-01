@@ -4,3 +4,5 @@
 .Ruserdata
 packrat/lib/*
 packrat/src/*
+packrat/lib*/
+packrat/src/
