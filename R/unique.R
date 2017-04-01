@@ -17,6 +17,7 @@ newUniqueRule <- function(fields) {
 }
 
 #' Validates that a field in a data.table is unique
+#' @import data.table
 #'
 #' @export
 #' @param rule data rule that will be used to find duplicate records
