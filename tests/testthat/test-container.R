@@ -66,7 +66,16 @@ test_that("Rules container validates all rules", {
   expect_identical(nrow(subset(res, type == "Regex")), 2L)
   expect_identical(nrow(subset(res, type == "Unique")), 1L)
   expect_identical(res$value[res$type == "Regex"], c("abc", "xac"))
-  
+
+  rules <- newRulesContainer(source = "test.data", list(rule.unique, rule.regex))
+  res <- validateRules(conn, rules, dt)
+
+  # Check that database contains expected results
+  res <- dbGetQuery(conn, "SELECT * FROM errors")
+
+  expect_identical(nrow(subset(res, type == "Regex")), 4L)
+  expect_identical(nrow(subset(res, type == "Unique")), 2L)
+
   dbDisconnect(conn)
 })
 
@@ -82,6 +91,7 @@ test_that("Rules container validates all rules", {
   conn <- dbConnect(dbDriver("SQLite"), "test.db") # makes a new file
   res <- validateRules(conn, rules, dt)
   expect_identical(res[[1]], FALSE)
+  dbDisconnect(conn)
 })
 
 test_that("Url is generated and logged correctly if pattern is provided", {

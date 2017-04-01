@@ -22,6 +22,7 @@ Collate:
     'condition.R'
     'container.R'
     'error-logging.R'
+    'external.R'
     'foreign-key.R'
     'regex.R'
     'required.R'

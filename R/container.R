@@ -11,11 +11,17 @@ setClass("rulesContainer", contains = "DataRule",
 #'
 #' @export
 #' @param source data source of the data
-#' @param ... data rules that should be executed against the data
+#' @param ... data rules that should be executed against the data.
+#' If first element is a list, it will be used as container of rules
 #' @return container with rules
 newRulesContainer <- function(source, ...) {
-  rules <- new("rulesContainer", source = source, rules = list(...))
+  rules = list(...)
+  if(is.list(rules[[1]])){
+    rules <- rules[[1]]
+  }
+  rules <- new("rulesContainer", source = source, rules = rules)
 }
+
 
 #' Validates data using rules within the rule container
 #'
