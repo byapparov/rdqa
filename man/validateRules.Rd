@@ -4,7 +4,7 @@
 \alias{validateRules}
 \title{Validates data using rules within the rule container}
 \usage{
-validateRules(conn, container, dt)
+validateRules(conn, container, dt, url.pattern = NA_character_)
 }
 \arguments{
 \item{conn}{connection to the database}

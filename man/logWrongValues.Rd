@@ -5,7 +5,7 @@
 \title{Functions logs data.table with incrorrect records to the database}
 \usage{
 logWrongValues(conn, source, type, rule, refs, values,
-  urls = rep(NA_character_, length(values)))
+  url.pattern = NA_character_)
 }
 \arguments{
 \item{conn}{DBI connection}

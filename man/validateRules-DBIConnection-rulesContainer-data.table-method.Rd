@@ -6,7 +6,7 @@
 \title{Validates data.table against the container of rules}
 \usage{
 \S4method{validateRules}{DBIConnection,rulesContainer,data.table}(conn,
-  container, dt)
+  container, dt, url.pattern = NA_character_)
 }
 \arguments{
 \item{conn}{connection to the database}
