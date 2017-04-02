@@ -4,7 +4,7 @@
 \alias{validateRules}
 \title{Validates data using rules within the rule container}
 \usage{
-validateRules(conn, container, dt)
+validateRules(conn, container, dt, url.pattern = NA_character_)
 }
 \arguments{
 \item{conn}{connection to the database}
@@ -12,6 +12,8 @@ validateRules(conn, container, dt)
 \item{container}{container with rules}
 
 \item{dt}{data to be validated}
+
+\item{url.pattern}{if provided, it will be used to generated url}
 }
 \description{
 Validates data using rules within the rule container

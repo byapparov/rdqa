@@ -1,6 +1,9 @@
+#' @import methods
+#' @import assertthat
+
 library(data.table)
 library(assertthat)
-
+ 
 #' Top level class to define data rule
 setClass("DataRule", representation(name = "character",
                                       ref = "character",

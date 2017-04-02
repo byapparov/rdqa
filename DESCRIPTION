@@ -15,7 +15,8 @@ Imports:
     DBI,
     RSQLite,
     data.table,
-    assertthat
+    assertthat,
+    methods
 Collate: 
     'rules.R'
     'condition.R'

@@ -6,7 +6,7 @@
 \title{Validates data.table against the container of rules}
 \usage{
 \S4method{validateRules}{DBIConnection,rulesContainer,data.table}(conn,
-  container, dt)
+  container, dt, url.pattern = NA_character_)
 }
 \arguments{
 \item{conn}{connection to the database}
@@ -14,6 +14,8 @@
 \item{container}{container with data rules}
 
 \item{dt}{data.table that should be validated}
+
+\item{url.pattern}{if provided, it will be used to generated url}
 }
 \value{
 list of boolen values for each successful write to the database

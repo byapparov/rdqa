@@ -94,5 +94,21 @@ test_that("Rules container validates all rules", {
   dbDisconnect(conn)
 })
 
+test_that("Url is generated and logged correctly if pattern is provided", {
+  # Define data
+  dt <- data.table(id = c(1, 2, 2, 4),
+                   values = c("abc", "ab1", "cb2", "xac"),
+                   key = "id")
+  rule.regex <- newRegexRule("values", "[0-9]") # two records don't match
+  
+  rules <- newRulesContainer(source = "test.data", rule.regex)
+  # Connect to the database and execute the validation
+  conn <- dbConnect(dbDriver("SQLite"), "test.db") # makes a new file
+  res <- validateRules(conn, rules, dt, url.pattern = "http://myapp.com/object/%s")
+  
+  res <- dbGetQuery(conn, "SELECT COUNT(*) cnt FROM errors WHERE url LIKE '%myapp%'")
+  expect_identical(res[[1]], 2L)
+})
+
 # Post logging test cleanup
 if(file.exists("test.db")) file.remove("test.db")
