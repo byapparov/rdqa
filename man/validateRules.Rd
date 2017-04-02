@@ -12,6 +12,8 @@ validateRules(conn, container, dt, url.pattern = NA_character_)
 \item{container}{container with rules}
 
 \item{dt}{data to be validated}
+
+\item{url.pattern}{if provided, it will be used to generated url}
 }
 \description{
 Validates data using rules within the rule container

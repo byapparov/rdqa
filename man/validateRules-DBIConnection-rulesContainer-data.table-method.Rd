@@ -14,6 +14,8 @@
 \item{container}{container with data rules}
 
 \item{dt}{data.table that should be validated}
+
+\item{url.pattern}{if provided, it will be used to generated url}
 }
 \value{
 list of boolen values for each successful write to the database

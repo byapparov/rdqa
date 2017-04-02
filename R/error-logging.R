@@ -10,7 +10,7 @@ library(DBI)
 #' @param rule business rule that record violated
 #' @param refs correlation references of records, e.g. primary key values
 #' @param values wrong values
-#' @param urls vector of urls to an object in the system, if not provided defaulted to NAs
+#' @param url.pattern sprintf pattern for the url which will be used with refs
 #' @return TRUE if records are saved successfuly
 logWrongValues <- function(conn, source, type, rule, refs, values, url.pattern = NA_character_) {
 

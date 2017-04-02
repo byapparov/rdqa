@@ -20,7 +20,7 @@ logWrongValues(conn, source, type, rule, refs, values,
 
 \item{values}{wrong values}
 
-\item{urls}{vector of urls to an object in the system, if not provided defaulted to NAs}
+\item{url.pattern}{sprintf pattern for the url which will be used with refs}
 }
 \value{
 TRUE if records are saved successfuly

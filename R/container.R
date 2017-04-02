@@ -28,6 +28,7 @@ newRulesContainer <- function(source, ...) {
 #' @param conn connection to the database
 #' @param container container with rules
 #' @param dt data to be validated
+#' @param url.pattern if provided, it will be used to generated url
 setGeneric("validateRules", function(conn, container, dt, url.pattern = NA_character_) standardGeneric("validateRules"))
 
 #' Validates data.table against the container of rules
@@ -37,6 +38,7 @@ setGeneric("validateRules", function(conn, container, dt, url.pattern = NA_chara
 #' @param conn connection to the database
 #' @param container container with data rules
 #' @param dt data.table that should be validated
+#' @param url.pattern if provided, it will be used to generated url
 #' @return list of boolen values for each successful write to the database
 setMethod("validateRules", signature("DBIConnection", "rulesContainer", "data.table"), function(conn, container, dt, url.pattern = NA_character_) {
   res <- lapply(container@rules, function(r) {
