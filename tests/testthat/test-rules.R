@@ -74,10 +74,10 @@ describe("RequiredRule", {
 
 context("Regex rule")
 
-describe("RegexRule finds records that don't match regular expresion", {
+describe("RegexRule finds non-NA records that don't match regular expresion", {
   it("Regex rule validation works", {
-    dt <- data.table(id = c(1, 2, 3, 4),
-                     values = c("abc", "ab1", "cb2", "xac"),
+    dt <- data.table(id = c(1, 2, 3, 4, 5),
+                     values = c("abc", "ab1", "cb2", "xac", NA_character_),
                      key = "id")
     
     rule <- newRegexRule("values", "b")
