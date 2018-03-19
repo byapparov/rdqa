@@ -26,4 +26,5 @@ Collate:
     'foreign-key.R'
     'regex.R'
     'required.R'
+    'schema.R'
     'unique.R'

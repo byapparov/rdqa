@@ -16,10 +16,10 @@ setClass("rulesContainer", contains = "DataRule",
 #' @return container with rules
 newRulesContainer <- function(source, ...) {
   rules = list(...)
-  if(is.list(rules[[1]])){
+  if (is.list(rules[[1]])) {
     rules <- rules[[1]]
   }
-  rules <- new("rulesContainer", source = source, rules = rules)
+  new("rulesContainer", source = source, rules = rules)
 }
 
 
@@ -41,12 +41,12 @@ setGeneric("validateRules", function(conn, container, dt, url.pattern = NA_chara
 #' @param url.pattern if provided, it will be used to generated url
 #' @return list of boolen values for each successful write to the database
 setMethod("validateRules", signature("DBIConnection", "rulesContainer", "data.table"), function(conn, container, dt, url.pattern = NA_character_) {
-  res <- lapply(container@rules, function(r) {
+  lapply(container@rules, function(r) {
      errors <- validate(r, dt)
      n <- nrow(errors)
 
      # Skip logging if there are no errors
-     if (n == 0L) return (FALSE)
+     if (n == 0L) return(FALSE)
 
      logWrongValues(conn = conn,
                     source = container@source,

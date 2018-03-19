@@ -42,7 +42,7 @@ setGeneric("getValues", function(rule, errors) standardGeneric("getValues"))
 #' @param errors data.table that only contains records with errors
 #' @return vector of values that represent invalid records
 setMethod("getValues", signature("DataRule", "data.table"), function(rule, errors) {
-  subset.data.frame(errors, subset = rep(T, nrow(errors)), select =get(key(errors)))
+  subset.data.frame(errors, subset = rep(T, nrow(errors)), select = get(key(errors)))
 })
 
 
@@ -51,6 +51,8 @@ setClass("RecordRule", contains = "DataRule")
 
 #' Higher level class for errors that are at field level
 setClass("FieldRule", contains = "DataRule", representation(field = "character"))
+
+setClass("Schema", contains = "DataRule")
 
 #' Gets value(s) that contribute to rule vialation in a data.table
 #' 
@@ -67,6 +69,4 @@ setMethod("getValues", signature("FieldRule", "data.table"), function(rule, erro
 #' Class to validate the primariy key constraint
 #' Finds and logs missing records in the referenced table
 setClass("PrimaryKeyRule", contains = "RecordRule")
-
-
 

@@ -25,6 +25,6 @@ newRegexRule <- function(field, pattern) {
 #' @return records that did not pass the check
 setMethod("validate", signature("RegexRule", "data.table"), function(rule, dt) {
   callNextMethod()
-  errors <- subset(dt, !grepl(rule@pattern, get(rule@field)))
+  errors <- subset(dt, !is.na(get(rule@field)) & !grepl(rule@pattern, get(rule@field)))
   return(errors)
 })

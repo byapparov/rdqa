@@ -111,4 +111,4 @@ test_that("Url is generated and logged correctly if pattern is provided", {
 })
 
 # Post logging test cleanup
-if(file.exists("test.db")) file.remove("test.db")
+if (file.exists("test.db")) file.remove("test.db")
