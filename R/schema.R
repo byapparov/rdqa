@@ -13,10 +13,11 @@ setClass("Schema", contains = "rulesContainer",
 #'
 #' @export
 #' @param source data source of the data
-#' @param ... data rules that should be executed against the data.
+#' @param schema list of data fields with names, types and rules (unique, regex, required)
+#' @param rules list of data rules
 #' If first element is a list, it will be used as container of rules
 #' @return container with rules
-newSchema <- function(source, schema, rules) {
+Schema <- function(source, schema, rules) {
   
   schema.rules <- list()
   rules.index <- 1L

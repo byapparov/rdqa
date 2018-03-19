@@ -3,7 +3,7 @@ context("table schema")
 describe("SchemaRule", {
   it("checks column names and rules defined through columns and rules list", {
     dt <- data.table(id = c(1L, 2L, 3L, 3L, NA_integer_, 20L), name = c("a", "b", NA_character_, "d", "!", "x"), key = "id")
-    dt.schema <- newSchema(
+    dt.schema <- Schema(
       "sample.data",
       schema = list(
         list(
