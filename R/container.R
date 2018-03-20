@@ -41,12 +41,12 @@ setGeneric("validateRules", function(conn, container, dt, url.pattern = NA_chara
 #' @param url.pattern if provided, it will be used to generated url
 #' @return list of boolen values for each successful write to the database
 setMethod("validateRules", signature("DBIConnection", "rulesContainer", "data.table"), function(conn, container, dt, url.pattern = NA_character_) {
-  lapply(container@rules, function(r) {
+  output <- lapply(container@rules, function(r) {
      errors <- validate(r, dt)
      n <- nrow(errors)
 
      # Skip logging if there are no errors
-     if (n == 0L) return(FALSE)
+     if (n == 0L) return(NULL)
 
      logWrongValues(conn = conn,
                     source = container@source,
@@ -56,5 +56,7 @@ setMethod("validateRules", signature("DBIConnection", "rulesContainer", "data.ta
                     values = getValues(r, errors),
                     url.pattern
      )
+     errors
   })
+  rbindlist(output)
 })

@@ -38,6 +38,13 @@ Schema <- function(source, schema, rules) {
       schema.rules[[rules.index]] <- r
       rules.index <- rules.index + 1L
     }
+    if (!is.null(column$enum)) {
+      assert_that(is.character(column$enum), 
+                  length(column$enum) > 0)
+      r <- newEnumRule(column$name, column$enum)
+      schema.rules[[rules.index]] <- r
+      rules.index <- rules.index + 1L
+    }
   }
   rules <- append(rules, schema.rules)
   

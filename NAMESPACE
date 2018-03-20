@@ -2,6 +2,7 @@
 
 export(Schema)
 export(newConditionRule)
+export(newEnumRule)
 export(newExternalRule)
 export(newForeignKeyRule)
 export(newRegexRule)

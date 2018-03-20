@@ -21,6 +21,7 @@ Collate:
     'rules.R'
     'condition.R'
     'container.R'
+    'enum.R'
     'error-logging.R'
     'external.R'
     'foreign-key.R'

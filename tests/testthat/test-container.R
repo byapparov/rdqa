@@ -5,14 +5,14 @@ library(data.table)
 #' Set up the test db environment
 setupDqaDb <- function() {
 
-  if(file.exists("test.db")) file.remove("test.db")
+  if (file.exists("test.db")) file.remove("test.db")
   conn <- dbConnect(dbDriver("SQLite"), "test.db") # makes a new file
   error.record <- data.frame(list(date = Sys.time(),
                                   source = "sample.system",
                                   type = "Wrong Value",
                                   rule = "Positive Value",
                                   ref = "0",
-                                  value  ="-10",
+                                  value = "-10",
                                   url = "http://test.com/test"))
   dbWriteTable(conn, "errors", error.record)
   dbDisconnect(conn)
@@ -37,7 +37,7 @@ test_that("Records are logged correctly to the errors table", {
 })
 
 # Post logging test cleanup
-if(file.exists("test.db")) file.remove("test.db")
+if (file.exists("test.db")) file.remove("test.db")
 
 
 context("Rules container logs errors")
@@ -90,7 +90,7 @@ test_that("Rules container validates all rules", {
   # Connect to the database and execute the validation
   conn <- dbConnect(dbDriver("SQLite"), "test.db") # makes a new file
   res <- validateRules(conn, rules, dt)
-  expect_identical(res[[1]], FALSE)
+  expect_equal(dim(res), c(0, 0))
   dbDisconnect(conn)
 })
 
@@ -108,6 +108,7 @@ test_that("Url is generated and logged correctly if pattern is provided", {
   
   res <- dbGetQuery(conn, "SELECT COUNT(*) cnt FROM errors WHERE url LIKE '%myapp%'")
   expect_identical(res[[1]], 2L)
+  dbDisconnect(conn)
 })
 
 # Post logging test cleanup
