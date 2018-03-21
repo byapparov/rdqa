@@ -29,30 +29,23 @@ describe("SchemaRule", {
       rules = list(
         newConditionRule("id", "< 10")
       )
-    ) 
-
-    conn <- dbConnect(dbDriver("SQLite"), "test.db") # makes a new file
-    res <- validateRules(conn, dt.schema, dt)
+    )
+    
+    res <- validate(dt.schema, dt)
+    expect_equal(nrow(res), 6)
+    expect_equal(res[type == "Condition", value], "20")
+    expect_equal(res[type == "Regex", ref], 20)
+    expect_equal(res[type == "Unique", value], "3")
+    expect_equal(res[type == "Required", value], NA_character_)
+    expect_equal(res[type == "Enum", ref], c(1, 3))
 
     setnames(dt, "id", "id_new") 
-    expect_error(validateRules(conn, dt.schema, dt), regexp = "id", 
+    expect_error(validate(dt.schema, dt), regexp = "id", 
                  label = "missing column name is mentioned in the error")
     
     dt[, id := as.numeric(id_new)] 
-    expect_error(validateRules(conn, dt.schema, dt), regexp = "\\[id\\].*integer", 
+    expect_error(validate(dt.schema, dt), regexp = "\\[id\\].*integer", 
                  label = "column with the wrong type is mentioned in the error")
     
-    res <- dbGetQuery(conn, "SELECT * FROM errors")
-    
-    dbDisconnect(conn)
-    
-    res <- data.table(res)
- 
-    expect_equal(nrow(res), 6)
-    expect_equal(res[type == "Condition", value], "20")
-    expect_equal(res[type == "Regex", ref], "20")
-    expect_equal(res[type == "Unique", value], "3")
-    expect_equal(res[type == "Required", value], NA_character_)
-    expect_equal(res[type == "Enum", ref], c("1", "3"))
   })
 })

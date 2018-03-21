@@ -35,28 +35,38 @@ setGeneric("validateRules", function(conn, container, dt, url.pattern = NA_chara
 #'
 #' @export
 #' @include rules.R
-#' @param conn connection to the database
-#' @param container container with data rules
+#' @param rule container with data rules
 #' @param dt data.table that should be validated
+#' @param conn connection to the database
 #' @param url.pattern if provided, it will be used to generated url
 #' @return list of boolen values for each successful write to the database
-setMethod("validateRules", signature("DBIConnection", "rulesContainer", "data.table"), function(conn, container, dt, url.pattern = NA_character_) {
-  output <- lapply(container@rules, function(r) {
-     errors <- validate(r, dt)
-     n <- nrow(errors)
-
-     # Skip logging if there are no errors
-     if (n == 0L) return(NULL)
-
-     logWrongValues(conn = conn,
-                    source = container@source,
-                    type = r@type,
-                    rule = r@name,
-                    refs = subset(errors, subset = rep(T, n), select = get(key(errors))),
-                    values = getValues(r, errors),
-                    url.pattern
-     )
-     errors
-  })
-  rbindlist(output)
+setMethod("validate", signature("rulesContainer", "data.table"), 
+  function(rule, dt, conn = NULL, url.pattern = NA_character_) {
+    output <- lapply(rule@rules, function(r) {
+       errors <- validate(r, dt)
+       n <- nrow(errors)
+  
+       # Skip logging if there are no errors
+       if (n == 0L) return(NULL)
+        
+       refs = subset(errors, subset = rep(T, n), select = get(key(errors)))
+       values = getValues(r, errors)
+       if (!is.null(conn)) {
+         logWrongValues(conn = conn,
+                        source = rule@source,
+                        type = r@type,
+                        rule = r@name,
+                        refs = refs,
+                        values = values,
+                        url.pattern)
+       }
+       data.table(refs = refs,
+                  values = values,
+                  type = r@type)
+       
+    })
+    res <- rbindlist(output)
+    if (!nrow(res) > 0) return(data.table(ref = character(), value = character(), type = character()))
+    names(res) <- c("ref", "value", "type")
+    res
 })

@@ -56,23 +56,27 @@ Schema <- function(source, schema, rules) {
 #'
 #' @export
 #' @include rules.R
-#' @param conn connection to the database
-#' @param container container with data rules
+#' @param rule schema for the datas source
 #' @param dt data.table that should be validated
+#' @param conn connection to the database
 #' @param url.pattern if provided, it will be used to generated url
 #' @return list of boolen values for each successful write to the database
-setMethod("validateRules", signature("DBIConnection", "Schema", "data.table"), function(conn, container, dt, 
-                                                                                        url.pattern = NA_character_) {
-  for (column in container@schema) {
+setMethod("validate", c(rule = "Schema", dt = "data.table"), 
+  function(rule, dt, conn = NULL, url.pattern = NA_character_) {
+
+    for (column in rule@schema) {
     
-    assert_that(column$name %in% names(dt), 
-                msg = paste0("column not found in source", container@source, ":", column$name))
+      assert_that(column$name %in% names(dt), 
+                  msg = paste0("column not found in source", rule@source, ":", column$name))
+      actual.classes <- class(dt[, get(column$name)])
+      assert_that(column$class %in% actual.classes, 
+                  msg = paste0("column [", column$name, "](", actual.classes,")", 
+                               " is not of required class: (", column$class, ")"))
+      
+    }
     
-    actual.classes <- class(dt[, get(column$name)])
-    assert_that(column$class %in% actual.classes, 
-                msg = paste0("column [", column$name, "](", actual.classes,")", 
-                             " is not of required class: (", column$class, ")"))
-    
-  }
-  callNextMethod()
-})
+    callNextMethod()
+  
+  })
+
+

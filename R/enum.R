@@ -27,5 +27,6 @@ newEnumRule <- function(field, enum) {
 setMethod("validate", signature("EnumRule", "data.table"), function(rule, dt) {
   callNextMethod()
   errors <- subset(dt, !is.na(get(rule@field)) & !(get(rule@field) %in% rule@enum))
+
   return(errors)
 })

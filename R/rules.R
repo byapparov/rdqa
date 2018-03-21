@@ -14,8 +14,9 @@ setClass("DataRule", representation(name = "character",
 #'
 #' @param rule data rule that will be used to find records with errors
 #' @param dt data to be validated
+#' @param ... allows to extend validate function for new data rules
 #' @return subset of the original data that contains errors
-setGeneric("validate", function(rule, dt) standardGeneric("validate"))
+setGeneric("validate", function(rule, dt, ...) standardGeneric("validate"))
 
 #' Checks that rule and data.table are valid
 #' callNextMethod() should be called from all overloads of this method
@@ -51,8 +52,6 @@ setClass("RecordRule", contains = "DataRule")
 
 #' Higher level class for errors that are at field level
 setClass("FieldRule", contains = "DataRule", representation(field = "character"))
-
-setClass("Schema", contains = "DataRule")
 
 #' Gets value(s) that contribute to rule vialation in a data.table
 #' 
