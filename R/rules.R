@@ -14,8 +14,9 @@ setClass("DataRule", representation(name = "character",
 #'
 #' @param rule data rule that will be used to find records with errors
 #' @param dt data to be validated
+#' @param ... allows to extend validate function for new data rules
 #' @return subset of the original data that contains errors
-setGeneric("validate", function(rule, dt) standardGeneric("validate"))
+setGeneric("validate", function(rule, dt, ...) standardGeneric("validate"))
 
 #' Checks that rule and data.table are valid
 #' callNextMethod() should be called from all overloads of this method
@@ -42,7 +43,7 @@ setGeneric("getValues", function(rule, errors) standardGeneric("getValues"))
 #' @param errors data.table that only contains records with errors
 #' @return vector of values that represent invalid records
 setMethod("getValues", signature("DataRule", "data.table"), function(rule, errors) {
-  subset.data.frame(errors, subset = rep(T, nrow(errors)), select =get(key(errors)))
+  subset.data.frame(errors, subset = rep(T, nrow(errors)), select = get(key(errors)))
 })
 
 
@@ -67,6 +68,4 @@ setMethod("getValues", signature("FieldRule", "data.table"), function(rule, erro
 #' Class to validate the primariy key constraint
 #' Finds and logs missing records in the referenced table
 setClass("PrimaryKeyRule", contains = "RecordRule")
-
-
 

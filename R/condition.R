@@ -9,11 +9,18 @@ setClass("ConditionRule", contains = "FieldRule", representation(condition = "ex
 #' @param field name of the field to validate
 #' @param condition sting containing parsable condition for validation
 newConditionRule <- function(field, condition) {
+  if (is.character(condition)) {
+    exp.condition <- parse(text = paste0(field, " ", condition))
+  }
+  if (is.expression(condition)) {
+    exp.condition <- condition
+  }
+  exp.condition <- 
   rule <- new("ConditionRule",
             name = paste0("Field [", field, "] should match condition: ", condition),
             type = "Condition",
             field = field,
-            condition = parse(text = paste0(field, " ", condition)))
+            condition = exp.condition)
   return(rule)
 }
 

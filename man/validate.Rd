@@ -4,12 +4,14 @@
 \alias{validate}
 \title{Validates data in a data.table}
 \usage{
-validate(rule, dt)
+validate(rule, dt, ...)
 }
 \arguments{
 \item{rule}{data rule that will be used to find records with errors}
 
 \item{dt}{data to be validated}
+
+\item{...}{allows to extend validate function for new data rules}
 }
 \value{
 subset of the original data that contains errors
