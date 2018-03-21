@@ -112,29 +112,20 @@ customers <- data.table(
   key = "id"
 )
 
-# We need to connect to our meta database with [errors] table in it:
-conn <- dbConnect(dbDriver("SQLite"), "test.db") # makes a new file
-
 # Validate rules and log problems
-errors <- validateRules(conn, schema.customers, customers)
+errors <- validate(schema.customers, customers)
 print(errors)
 
-# Lets check what is the errors table
-res <- dbGetQuery(conn, "SELECT * FROM errors")
-dbDisconnect(conn)
-   
-print(res)
-
 ```
-This what will be logged into the errors table for this example:
+Errors table for this example will have:
 
- date    |  source  | type |  rule | ref | value | url
--------- | -------- |----- | -------------------------- | --- | ----- | --------------------------
-1521504963 | customer.data | Condition |                Field [id] should match condition: > 0 | -1 | -1 | NA
-1521504963 | customer.data | Condition | Field [name] should match condition: nchar(name) < 12 | 2 | Isabellarose | NA
-1521504963 | customer.data | Required |                       Field [id] should not be empty | NA | NA | NA
-1521504963 | customer.data |     Regex |               Field [name] should matrch pattern \\w | -1 |     | NA
-1521504963 | customer.data |     Enum  |   Field [gender] should should be one of enum values |  2 |  other | NA
+ n | ref | value | type
+-- | --- | ----- |-----
+1: | -1 |   -1  |Condition
+2: |  2 | Isabellarose | Condition
+3: | NA |    NA | Required
+4: | -1 |       | Regex
+5: |  2 | other | Enum
 
 This specification can be used within ETL or data import procedure to identify records with erros. 
 
