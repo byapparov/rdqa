@@ -18,7 +18,7 @@ setupDqaDb <- function() {
   dbDisconnect(conn)
 }
 
-context("rules container")
+context("Rules container")
 
 setupDqaDb()
 

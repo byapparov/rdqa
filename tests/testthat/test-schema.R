@@ -30,9 +30,11 @@ describe("SchemaRule", {
         newConditionRule("id", "< 10")
       )
     )
+  
     
     res <- validate(dt.schema, dt)
-    expect_equal(nrow(res), 6)
+    
+    expect_equal(nrow(res), 6L)
     expect_equal(res[type == "Condition", value], "20")
     expect_equal(res[type == "Regex", ref], 20)
     expect_equal(res[type == "Unique", value], "3")
