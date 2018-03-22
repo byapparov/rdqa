@@ -4,7 +4,7 @@
 \alias{Schema}
 \title{Creates new rules container from rules}
 \usage{
-Schema(source, schema, rules)
+Schema(source, schema, rules = list())
 }
 \arguments{
 \item{source}{data source of the data}

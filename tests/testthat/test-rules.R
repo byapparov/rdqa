@@ -33,30 +33,6 @@ test_that("Execution of foreign key rule returns correct results", {
 
 })
 
-context("Condition rule")
-
-describe("ConditionRule", {
-  it("finds values that don't match a give condition", {
-    dt <- data.table(id = c(1, 1, 2, 3, 4, NA_real_),
-                     values = c("abc", "ab1", "cb2", "xac", "yac", ""),
-                     key = "id")
-    # Check it works agains a constant
-    rule <- newConditionRule("id", condition = " >= 2")
-    errors <- validate(rule, dt)
-    expect_identical(nrow(errors), 2L)
-  })
-  it("finds records that don't match reference condition rule", {
-    # Check condition rule works agains another field
-    dt <- data.table(id = c(1, 2, 3, 4, 5),
-                     small = c(1, 10, 2, 3, 4),
-                     big = c(10, 1, 20, 30, 40),
-                     key = "id")
-    rule <- newConditionRule("small", condition = "< big")
-    errors <- validate(rule, dt)
-    expect_identical(nrow(errors), 1L)
-  })
-})
-
 context("External rule")
 describe("ExternalRule", {
   it("creates error records based on error vector or data.table permutation", {

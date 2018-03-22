@@ -17,37 +17,12 @@ setClass("Schema", contains = "rulesContainer",
 #' @param rules list of data rules
 #' If first element is a list, it will be used as container of rules
 #' @return container with rules
-Schema <- function(source, schema, rules) {
-  
-  schema.rules <- list()
-  rules.index <- 1L
+Schema <- function(source, schema, rules = list()) {
   
   for (column in schema) {
-    if (!is.null(column$regex)) {
-      r <- newRegexRule(column$name, column$regex)
-      schema.rules[[rules.index]] <- r
-      rules.index <- rules.index + 1L
-    }
-    if (!is.null(column$unique) && column$unique) {
-      r <- newUniqueRule(column$name)
-      schema.rules[[rules.index]] <- r
-      rules.index <- rules.index + 1L
-    }
-    if (!is.null(column$required) && column$required) {
-      r <- newRequiredRule(column$name)
-      schema.rules[[rules.index]] <- r
-      rules.index <- rules.index + 1L
-    }
-    if (!is.null(column$enum)) {
-      assert_that(is.character(column$enum), 
-                  length(column$enum) > 0)
-      r <- newEnumRule(column$name, column$enum)
-      schema.rules[[rules.index]] <- r
-      rules.index <- rules.index + 1L
-    }
+    column.rules <- extractFieldRules(column)
+    rules <- append(rules, column.rules)
   }
-  rules <- append(rules, schema.rules)
-  
   new("Schema", source = source, schema = schema, rules = rules)
 }
 
@@ -79,4 +54,27 @@ setMethod("validate", c(rule = "Schema", dt = "data.table"),
   
   })
 
+
+#' Extracts field levels rumes
+#' @noRd
+#' @param column column specification from the schema
+extractFieldRules <- function(column) {
+  rules <- list()
+  
+  if (!is.null(column$regex)) {
+    rules <- append(rules, newRegexRule(column$name, column$regex))
+  }
+  if (!is.null(column$unique) && column$unique) {
+    rules <- append(rules, newUniqueRule(column$name))
+  }
+  if (!is.null(column$required) && column$required) {
+    rules <- append(rules, newRequiredRule(column$name))
+  }
+  if (!is.null(column$enum)) {
+    assert_that(is.character(column$enum), 
+                length(column$enum) > 0)
+    rules <- append(rules, newEnumRule(column$name, column$enum))
+  }
+  rules
+}
 
