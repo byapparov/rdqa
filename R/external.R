@@ -14,12 +14,11 @@ setClass("ExternalRule", contains = "FieldRule", representation(errors = "logica
 #' @param errors logical vector that defines records with errors
 #' @return new external rule
 newExternalRule <- function(field, errors) {
-  if(is.data.table(errors)) {
+  if (is.data.table(errors)) {
     name = paste("Wrong data [", paste(names(errors), sep = ", "), "].")
     errors <- unlist(errors)
-  }
-  else {
-    name =  paste0("Field [", field, "] contains wrong data")
+  } else {
+    name = paste0("Field [", field, "] contains wrong data")
   }
 
   rule <- new("ExternalRule", name = name,
@@ -30,12 +29,8 @@ newExternalRule <- function(field, errors) {
 }
 
 
-#' Validates data.table for external rule
-#'
-#' @export
-#' @param rule external rule
-#' @param dt data for validation
-#' @return records that did not pass the check
+#' @rdname validate
+#' @return for `ExternalRule` records defined by TRUE/FALSE vector of permutations.
 setMethod("validate", signature("ExternalRule", "data.table"), function(rule, dt) {
   callNextMethod()
   errors <- subset(dt, rule@errors)

@@ -19,12 +19,8 @@ newForeignKeyRule <- function(field, primary.key) {
   return(rule)
 }
 
-#'  Validates data.table for foreign key data rule
-#'
-#' @export
-#' @param rule foreign key rule
-#' @param dt data for validation
-#' @return records that did not pass the check
+#' @rdname validate
+#' @return for `ForeignKeyRule` orphan records based on the foreign key constraint.
 setMethod("validate", signature("ForeignKeyRule", "data.table"), function(rule, dt) {
   callNextMethod()
   errors <- subset(dt, !get(rule@field) %in% rule@primary.key)

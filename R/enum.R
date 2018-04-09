@@ -18,12 +18,8 @@ newEnumRule <- function(field, enum) {
   return(rule)
 }
 
-#' Validates data.table for enum field rule
-#'
-#' @export
-#' @param rule enum rule
-#' @param dt data for validation
-#' @return records that did not pass the check
+#' @rdname validate
+#' @return for `EnumRule` records where values don't match given list of valid values.
 setMethod("validate", signature("EnumRule", "data.table"), function(rule, dt) {
   callNextMethod()
   errors <- subset(dt, !is.na(get(rule@field)) & !(get(rule@field) %in% rule@enum))

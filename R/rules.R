@@ -11,19 +11,15 @@ setClass("DataRule", representation(name = "character",
          )
 
 #' Validates data in a data.table
-#'
+#' @import data.table
+#' @export
 #' @param rule data rule that will be used to find records with errors
 #' @param dt data to be validated
 #' @param ... allows to extend validate function for new data rules
 #' @return subset of the original data that contains errors
 setGeneric("validate", function(rule, dt, ...) standardGeneric("validate"))
 
-#' Checks that rule and data.table are valid
-#' callNextMethod() should be called from all overloads of this method
-#'
-#' @param rule data rule that will be used to find records with errors
-#' @param dt data to be validated
-#' @return subset of the original data that contains errors
+# callNextMethod() should be called from all overloads of this method
 setMethod("validate", signature("DataRule", "data.table"), function(rule, dt) {
   # check that key is set and it is only one field
   assert_that(length(key(dt)) == 1)
@@ -37,11 +33,7 @@ setMethod("validate", signature("DataRule", "data.table"), function(rule, dt) {
 #' @return vector of values that represent invalid records
 setGeneric("getValues", function(rule, errors) standardGeneric("getValues"))
 
-#' Gets value(s) that contribute to rule vialation in a data.table
-#' 
-#' @param rule data rule that will be used to determine how to make the vector of values
-#' @param errors data.table that only contains records with errors
-#' @return vector of values that represent invalid records
+
 setMethod("getValues", signature("DataRule", "data.table"), function(rule, errors) {
   subset.data.frame(errors, subset = rep(T, nrow(errors)), select = get(key(errors)))
 })
@@ -53,11 +45,6 @@ setClass("RecordRule", contains = "DataRule")
 #' Higher level class for errors that are at field level
 setClass("FieldRule", contains = "DataRule", representation(field = "character"))
 
-#' Gets value(s) that contribute to rule vialation in a data.table
-#' 
-#' @param rule data rule that will be used to determine how to make the vector of values
-#' @param errors data.table that only contains records with errors
-#' @return vector of values that represent invalid records
 setMethod("getValues", signature("FieldRule", "data.table"), function(rule, errors) {
   field <- rule@field
   values <- subset(errors, select = get(field))

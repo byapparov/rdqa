@@ -24,11 +24,9 @@ newConditionRule <- function(field, condition) {
   return(rule)
 }
 
-#' Validates data.table for regex field rule
-#'
-#' @param rule Condition rule to validate data
-#' @param dt Data for validation
-#' @return Records that did not pass the condition
+#' @rdname validate
+#' @return for `ConditionRule` records where values in target field 
+#'     don't match specified condition.
 setMethod("validate", signature("ConditionRule", "data.table"), function(rule, dt) {
   callNextMethod()
   errors <- subset(dt, !eval(rule@condition))

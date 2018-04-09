@@ -14,12 +14,8 @@ newRequiredRule <- function(field) {
   return(dt)
 }
 
-#' Validates data.table for the empty field rule
-#' 
-#' @export
-#' @param rule required rule
-#' @param dt data for validation
-#' @return records that did not pass the check
+#' @rdname validate
+#' @return for `RequiredRule` records where target field is NA or zero-length.
 setMethod("validate", signature("RequiredRule", "data.table"), function(rule, dt) {
   callNextMethod()
   errors <-  subset(dt, is.na(get(rule@field)) | nchar(get(rule@field)) == 0)
