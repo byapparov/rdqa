@@ -2,7 +2,7 @@ library(data.table)
 #' Class that allows to combine rules into a container
 #'
 #' @include rules.R
-setClass("rulesContainer", contains = "DataRule",
+setClass("RulesContainer", contains = "DataRule",
           representation(source = "character",
                          rules = "list")
 )
@@ -19,7 +19,7 @@ newRulesContainer <- function(source, ...) {
   if (is.list(rules[[1]])) {
     rules <- rules[[1]]
   }
-  new("rulesContainer", source = source, rules = rules)
+  new("RulesContainer", source = source, rules = rules)
 }
 
 
@@ -31,16 +31,12 @@ newRulesContainer <- function(source, ...) {
 #' @param url.pattern if provided, it will be used to generated url
 setGeneric("validateRules", function(conn, container, dt, url.pattern = NA_character_) standardGeneric("validateRules"))
 
-#' Validates data.table against the container of rules
-#'
-#' @export
 #' @include rules.R
-#' @param rule container with data rules
-#' @param dt data.table that should be validated
+#' @rdname validate
 #' @param conn connection to the database
 #' @param url.pattern if provided, it will be used to generated url
-#' @return list of boolen values for each successful write to the database
-setMethod("validate", signature("rulesContainer", "data.table"), 
+#' @return for `RulesContainer` error records with value of key column, target column and rule type
+setMethod("validate", signature("RulesContainer", "data.table"), 
   function(rule, dt, conn = NULL, url.pattern = NA_character_) {
     output <- lapply(rule@rules, function(r) {
        errors <- validate(r, dt)

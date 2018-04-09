@@ -19,7 +19,8 @@ setClass("DataRule", representation(name = "character",
 #' @return subset of the original data that contains errors
 setGeneric("validate", function(rule, dt, ...) standardGeneric("validate"))
 
-# callNextMethod() should be called from all overloads of this method
+
+#' @rdname validate
 setMethod("validate", signature("DataRule", "data.table"), function(rule, dt) {
   # check that key is set and it is only one field
   assert_that(length(key(dt)) == 1)
