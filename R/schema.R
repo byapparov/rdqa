@@ -19,6 +19,8 @@ setClass("Schema", contains = "RulesContainer",
 #' @return container with rules
 Schema <- function(source, schema, rules = list()) {
   
+  assert_that(is.string(source), is.list(schema), is.list(rules))
+  
   for (column in schema) {
     column.rules <- extractFieldRules(column)
     rules <- append(rules, column.rules)
