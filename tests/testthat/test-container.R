@@ -22,7 +22,7 @@ context("Rules container")
 
 setupDqaDb()
 
-describe("rulesContainer", {
+describe("RulesContainer", {
   it("can log records to the errors table if connection is provided", {
       conn <-  dbConnect(dbDriver("SQLite"), "test.db")
       source <- "test.system"

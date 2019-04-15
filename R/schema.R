@@ -2,7 +2,7 @@ library(data.table)
 #' Class that allows to combine rules into a container
 #'
 #' @include rules.R
-setClass("Schema", contains = "rulesContainer",
+setClass("Schema", contains = "RulesContainer",
          representation(source = "character",
                         schema = "list",
                         rules = "list")
@@ -19,6 +19,8 @@ setClass("Schema", contains = "rulesContainer",
 #' @return container with rules
 Schema <- function(source, schema, rules = list()) {
   
+  assert_that(is.string(source), is.list(schema), is.list(rules))
+  
   for (column in schema) {
     column.rules <- extractFieldRules(column)
     rules <- append(rules, column.rules)
@@ -27,15 +29,9 @@ Schema <- function(source, schema, rules = list()) {
 }
 
 
-#' Validates data.table against the container of rules
-#'
-#' @export
+#' @rdname validate
 #' @include rules.R
-#' @param rule schema for the datas source
-#' @param dt data.table that should be validated
-#' @param conn connection to the database
-#' @param url.pattern if provided, it will be used to generated url
-#' @return list of boolen values for each successful write to the database
+#' @return for `Schema` same as RulesContainer
 setMethod("validate", c(rule = "Schema", dt = "data.table"), 
   function(rule, dt, conn = NULL, url.pattern = NA_character_) {
 

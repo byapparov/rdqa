@@ -17,12 +17,8 @@ newRegexRule <- function(field, pattern) {
   return(rule)
 }
 
-#' Validates data.table for regex field rule
-#'
-#' @export
-#' @param rule regex rule
-#' @param dt data for validation
-#' @return records that did not pass the check
+#' @rdname validate
+#' @return for `RegexRule` records where values don't match given regular expression.
 setMethod("validate", signature("RegexRule", "data.table"), function(rule, dt) {
   callNextMethod()
   errors <- subset(dt, !is.na(get(rule@field)) & !grepl(rule@pattern, get(rule@field)))
