@@ -21,23 +21,30 @@ describe("ConditionRule", {
     expect_identical(nrow(errors), 1L)
   })
   it("validates data using expression", {
-    dt <- data.table(id = c(1, 1, 2, 3, 4, NA_real_),
-                     name = c("abc", "ab1", "very-long-string", "xac", "yac", ""),
-                     key = "id")
+    dt <- data.table(
+      id = c(1, 1, 2, 3, 4, NA_real_),
+      name = c("abc", "ab1", "very-long-string", "xac", "yac", ""),
+      key = "id"
+    )
     # Check it works agains a constant
     rule <- newConditionRule("id", condition = expression(nchar(name) <= 10))
     errors <- validate(rule, dt)
-    expect_identical(nrow(errors), 1L) 
+    expect_identical(nrow(errors), 1L)
     expect_identical(errors$name, "very-long-string")
   })
   it("validates rules on several fields without taking into account NA values", {
-    dt <- data.table(id = c(1, 1, 2, 3, 4, NA_real_),
-                   values = c("abc", "ab1", "very-long-string", "xac", "yac", ""),
-                   key = "id")
+    dt <- data.table(
+      id = c(1, 1, 2, 3, 4, NA_real_),
+      values = c("abc", "ab1", "very-long-string", "xac", "yac", ""),
+      key = "id"
+    )
     # Check it works agains a constant
-    rule <- newConditionRule("id", condition = expression(nchar(values) <= 10 & id > 1))
+    rule <- newConditionRule(
+      "id",
+      condition = expression(nchar(values) <= 10 & id > 1)
+    )
     errors <- validate(rule, dt)
-    expect_identical(nrow(errors), 3L) 
+    expect_identical(nrow(errors), 3L)
   })
   it("validates rules on several fields and NA can be flagged explicitely", {
     dt <- data.table(id = c(1, 1, 2, 3, 4, NA_real_),
@@ -46,6 +53,6 @@ describe("ConditionRule", {
     # Check it works agains a constant
     rule <- newConditionRule("id", condition = expression(nchar(values) <= 10 & id > 1 & !is.na(id)))
     errors <- validate(rule, dt)
-    expect_identical(nrow(errors), 4L) 
+    expect_identical(nrow(errors), 4L)
   })
 })

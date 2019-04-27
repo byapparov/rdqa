@@ -3,12 +3,16 @@
 
 library(data.table)
 library(assertthat)
- 
+
 #' Top level class to define data rule
-setClass("DataRule", representation(name = "character",
-                                      ref = "character",
-                                      type = "character")
-         )
+setClass(
+  "DataRule",
+  representation(
+    name = "character",
+    ref = "character",
+    type = "character"
+  )
+)
 
 #' Validates data in a data.table
 #' @import data.table
@@ -35,16 +39,28 @@ setMethod("validate", signature("DataRule", "data.table"), function(rule, dt) {
 setGeneric("getValues", function(rule, errors) standardGeneric("getValues"))
 
 
-setMethod("getValues", signature("DataRule", "data.table"), function(rule, errors) {
-  subset.data.frame(errors, subset = rep(T, nrow(errors)), select = get(key(errors)))
-})
+setMethod(
+  "getValues",
+  signature("DataRule", "data.table"),
+  function(rule, errors) {
+    subset.data.frame(
+      errors,
+      subset = rep(T, nrow(errors)),
+      select = get(key(errors))
+    )
+  }
+)
 
 
 #' Higher level class for errors that are at the record level, e.g. missing or duplicate
 setClass("RecordRule", contains = "DataRule")
 
 #' Higher level class for errors that are at field level
-setClass("FieldRule", contains = "DataRule", representation(field = "character"))
+setClass(
+  "FieldRule",
+  contains = "DataRule",
+  representation(field = "character")
+)
 
 setMethod("getValues", signature("FieldRule", "data.table"), function(rule, errors) {
   field <- rule@field
@@ -56,4 +72,3 @@ setMethod("getValues", signature("FieldRule", "data.table"), function(rule, erro
 #' Class to validate the primariy key constraint
 #' Finds and logs missing records in the referenced table
 setClass("PrimaryKeyRule", contains = "RecordRule")
-

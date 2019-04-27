@@ -10,11 +10,13 @@ setClass("EnumRule", contains = "FieldRule", representation(enum = "character"))
 #' @param enum vector of allowed character values
 #' @return new enum rule
 newEnumRule <- function(field, enum) {
-  rule <- new("EnumRule", 
-              name = paste0("Field [", field, "] should should be one of enum values"),
-              type = "Enum",
-              field = field,
-              enum = enum)
+  rule <- new(
+    "EnumRule",
+    name = paste0("Field [", field, "] should should be one of enum values"),
+    type = "Enum",
+    field = field,
+    enum = enum
+  )
   return(rule)
 }
 
@@ -22,7 +24,8 @@ newEnumRule <- function(field, enum) {
 #' @return for `EnumRule` records where values don't match given list of valid values.
 setMethod("validate", signature("EnumRule", "data.table"), function(rule, dt) {
   callNextMethod()
-  errors <- subset(dt, !is.na(get(rule@field)) & !(get(rule@field) %in% rule@enum))
-
+  errors <- subset(
+    dt, !is.na(get(rule@field)) & !(get(rule@field) %in% rule@enum)
+  )
   return(errors)
 })

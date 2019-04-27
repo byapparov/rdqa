@@ -8,9 +8,13 @@ describe("Enum rule", {
       key = "id"
     )
     rule <- newEnumRule("type", c("small", "big", "other"))
-    
+
     errors <- validate(rule, dt)
     expected <- c(2L, 3L)
-    expect_equal(errors$id, expected, label = "records not matching enum were identified")
+    expect_equal(
+      errors$id,
+      expected,
+      label = "records not matching enum were identified"
+    )
   })
 })

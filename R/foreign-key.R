@@ -2,7 +2,11 @@
 
 #' Class to describe foreign key rules
 #' @include rules.R
-setClass("ForeignKeyRule", contains = "FieldRule", representation(primary.key = "character"))
+setClass(
+  "ForeignKeyRule",
+  contains = "FieldRule",
+  representation(primary.key = "character")
+)
 
 #' Factory for the ForeignKey rule
 #'
@@ -21,8 +25,11 @@ newForeignKeyRule <- function(field, primary.key) {
 
 #' @rdname validate
 #' @return for `ForeignKeyRule` orphan records based on the foreign key constraint.
-setMethod("validate", signature("ForeignKeyRule", "data.table"), function(rule, dt) {
-  callNextMethod()
-  errors <- subset(dt, !get(rule@field) %in% rule@primary.key)
-  return(errors)
-})
+setMethod(
+  "validate",
+  signature("ForeignKeyRule", "data.table"),
+  function(rule, dt) {
+    callNextMethod()
+    subset(dt, !get(rule@field) %in% rule@primary.key)
+  }
+)

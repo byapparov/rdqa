@@ -19,13 +19,13 @@ logWrongValues <- function(conn, source, type, rule, refs, values, url.pattern =
   values <- as.character(unlist(values))
 
   # Generate urls for the error records if pattern is available
-  if(is.na(url.pattern)){
-    urls = rep(NA_character_, length(values))
+  if (is.na(url.pattern)) {
+    urls <- rep(NA_character_, length(values))
   }
   else {
     urls <- sprintf(url.pattern, refs)
   }
-  
+
   dqa.records <- data.frame(date = date,
                             source = source,
                             type = type,
@@ -34,7 +34,14 @@ logWrongValues <- function(conn, source, type, rule, refs, values, url.pattern =
                             value = values,
                             url = urls)
 
-  colnames(dqa.records) <- c("date", "source", "type", "rule", "ref", "value", "url")
+  colnames(dqa.records) <- c(
+    "date",
+    "source",
+    "type",
+    "rule",
+    "ref",
+    "value",
+    "url"
+  )
   dbWriteTable(conn, "errors", dqa.records, append = TRUE)
 }
-

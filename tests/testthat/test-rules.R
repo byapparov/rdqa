@@ -7,15 +7,15 @@ describe("RegexRule finds non-NA records that don't match regular expresion", {
     dt <- data.table(id = c(1, 2, 3, 4, 5),
                      values = c("abc", "ab1", "cb2", "xac", NA_character_),
                      key = "id")
-    
+
     rule <- newRegexRule("values", "b")
     errors <- validate(rule, dt)
     expect_identical(nrow(errors), 1L)
-    
+
     rule <- newRegexRule("values", "[0-9]")
     errors <- validate(rule, dt)
     expect_identical(nrow(errors), 2L)
-    
+
   })
 })
 
@@ -42,8 +42,11 @@ describe("ExternalRule", {
     rule <- newExternalRule("values", errors = c(T, F, T, F, T))
     errors <- validate(rule, dt)
     expect_identical(nrow(errors), 3L)
-    
-    rule <- newExternalRule("values", errors = data.table("bad.values" = c(T, F, T, F, T)))
+
+    rule <- newExternalRule(
+      "values",
+      errors = data.table("bad.values" = c(T, F, T, F, T))
+    )
     errors <- validate(rule, dt)
     expect_identical(nrow(errors), 3L)
   })

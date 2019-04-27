@@ -1,7 +1,11 @@
 
 
 #' @include rules.R
-setClass("ConditionRule", contains = "FieldRule", representation(condition = "expression"))
+setClass(
+  "ConditionRule",
+  contains = "FieldRule",
+  representation(condition = "expression")
+)
 
 #' Creates new condition rule
 #'
@@ -15,20 +19,25 @@ newConditionRule <- function(field, condition) {
   if (is.expression(condition)) {
     exp.condition <- condition
   }
-  exp.condition <- 
-  rule <- new("ConditionRule",
-            name = paste0("Field [", field, "] should match condition: ", condition),
-            type = "Condition",
-            field = field,
-            condition = exp.condition)
+  exp.condition <-
+  rule <- new(
+    "ConditionRule",
+    name = paste0("Field [", field, "] should match condition: ", condition),
+    type = "Condition",
+    field = field,
+    condition = exp.condition
+  )
   return(rule)
 }
 
 #' @rdname validate
-#' @return for `ConditionRule` records where values in target field 
+#' @return for `ConditionRule` records where values in target field
 #'     don't match specified condition.
-setMethod("validate", signature("ConditionRule", "data.table"), function(rule, dt) {
-  callNextMethod()
-  errors <- subset(dt, !eval(rule@condition))
-  return(errors)
-})
+setMethod(
+  "validate",
+  signature("ConditionRule", "data.table"),
+  function(rule, dt) {
+    callNextMethod()
+    subset(dt, !eval(rule@condition))
+  }
+)

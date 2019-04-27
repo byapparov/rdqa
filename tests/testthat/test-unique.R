@@ -5,12 +5,12 @@ describe("UniqueRule", {
     dt <- data.table(id = c(1, 2, 2, 4),
                      values = c("abc", "ab1", "cb2", "xac"),
                      key = "id")
-    
+
     rule <- newUniqueRule("id")
     errors <- validate(rule, dt)
     expect_identical(nrow(errors), 1L)
     expect_identical(errors$values, "cb2")
-    
+
   })
   it("it finds several duplicated values", {
     rule <- newUniqueRule("big")

@@ -1,7 +1,11 @@
 
 
 #' @include rules.R
-setClass("RegexRule", contains = "FieldRule", representation(pattern = "character"))
+setClass(
+  "RegexRule",
+  contains = "FieldRule",
+  representation(pattern = "character")
+)
 
 #' Creates new regex rule
 #'
@@ -10,11 +14,13 @@ setClass("RegexRule", contains = "FieldRule", representation(pattern = "characte
 #' @param pattern regex pattern that field should comply with
 #' @return new regex rule
 newRegexRule <- function(field, pattern) {
-  rule <- new("RegexRule", name = paste0("Field [", field, "] should matrch pattern ", pattern),
-            type = "Regex",
-            field = field,
-            pattern = pattern)
-  return(rule)
+  new(
+    "RegexRule",
+    name = paste0("Field [", field, "] should matrch pattern ", pattern),
+    type = "Regex",
+    field = field,
+    pattern = pattern
+  )
 }
 
 #' @rdname validate
